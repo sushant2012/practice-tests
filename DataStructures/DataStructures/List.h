@@ -42,6 +42,34 @@ namespace List
 	};
 
 	template<typename T>
+	void List<T>::reverse()
+	{
+//		if (_size == 0 || _size == 1)
+//			return;
+//		else if (_size == 2)
+//		{
+//			_head->next->next = _head;
+//			_head = _head->next;
+//			_head->next->next = 0;
+//			return;
+//		}
+//		else
+//		{
+			Node* t, *y = _head, *r = 0;
+			
+			while (y != 0)
+			{
+				t = y->next;
+				y->next = r;
+				r = y;
+				y = t;
+			}
+			_head = r;
+//		}
+		
+	}
+	
+	template<typename T>
 	List<T>::~List()
 	{
 		if (_head == 0)
@@ -89,11 +117,15 @@ namespace List
 	{
 		//CStopWatch sw;
 		//sw.startTimer();
-		string s = "SUSHANTSHARMATANUSOHAMHUMA";
+		//string s = "SUSHANTSHARMATANUSOHAMHUMA";
+		//string s = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		string s = "ABC";
 		List<char> list(&s[0], &s[s.length()-1]);
 		//sw.stopTimer();
 		//cout << setw(25) << setprecision(12) << sw.getElapsedTime() << endl;
 		cout << "Size: " << list.size() << endl;
+		list.print();
+		list.reverse();
 		list.print();
 	}
 }

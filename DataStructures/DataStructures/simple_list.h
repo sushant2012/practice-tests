@@ -7,6 +7,7 @@
 
 #ifndef SIMPLE_LIST_H
 #define	SIMPLE_LIST_H
+
 #include <iostream>
 using namespace std;
 
@@ -32,6 +33,7 @@ namespace simple_list {
 	class slist {
 		snode* _head;
 	public:
+		slist() : _head(0){}
 		void insert(int key);
 		void print();
 		~slist();
@@ -59,10 +61,17 @@ namespace simple_list {
 	void slist::print() {
 		snode * p(_head);
 		while (p) {
-			cout << p->key << ",";
+			std::cout << p->key << ",";
 			p = p->next;
 		}
 		cout << endl;
+	}
+
+	void test() {
+		slist sl;
+		for (int i = 0; i < 40; ++i)
+			sl.insert(i + 1);
+		sl.print();
 	}
 }
 

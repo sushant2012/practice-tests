@@ -7,13 +7,11 @@
 
 #ifndef SIMPLE_LIST_H
 #define	SIMPLE_LIST_H
-
+#include <iostream>
+using namespace std;
 
 namespace simple_list {
 
-#include <iostream>
-	
-	using namespace std;
 	struct snode {
 		int key;
 		snode* next;
@@ -45,29 +43,26 @@ namespace simple_list {
 			return;
 		}
 		snode * q(_head), *p;
-		while(q && p=q->next) q = p;
+		while (q && (p = q->next)) q = p;
 		q->next = new snode(key);
 	}
-	
-	slist::~slist()
-	{
-		snode* p(_head), *q;
-		while(p)
-		{
+
+	slist::~slist() {
+		snode * p(_head), *q;
+		while (p) {
 			q = p;
 			p = q->next;
 			delete q;
 		}
 	}
-	
-	void slist::print()
-	{
-		snode* p(_head);
-		while(p)
-		{
+
+	void slist::print() {
+		snode * p(_head);
+		while (p) {
 			cout << p->key << ",";
 			p = p->next;
 		}
+		cout << endl;
 	}
 }
 

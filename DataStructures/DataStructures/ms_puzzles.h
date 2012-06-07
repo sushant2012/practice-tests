@@ -15,12 +15,41 @@
 #include <algorithm>
 #include <iterator>
 #include <functional>
-#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
 namespace ms_puzzles {
-	
+	namespace recursive
+	{
+		int max(int a[], int s, int e)
+		{
+			if (s<e)
+			{
+				
+			}
+				return a[s];
+		}
+		void toh(int n, char x, char y, char z) //in x, move to y, z spare
+		{
+			if (n==0)
+			{
+				return;
+			}
+			toh(n-1, x, z, y); //in x, move to z, y spare
+			cout << "Move " << n << " from "<< x << " to " << y << endl;
+			toh(n-1, z, y, x);
+		}
+		void test_TOH()
+		{
+			for(int i=0; i<8; ++i)
+			{
+				cout << "No. of disks: " << i+1 << endl;
+				toh(i+1, 'X', 'Y', 'Z');
+				cout << endl << endl;
+			}
+		}
+	}
 	namespace arrays
 	{
 		int randno() { return rand()%200-100; }
@@ -36,15 +65,26 @@ namespace ms_puzzles {
 			random_shuffle(v2.begin(), v2.end());
 			copy(v2.begin(), v2.end(), ostream_iterator<int>(cout, ",")); cout << endl;
 			
-			unordered_map<int, int> count;
-			for_each(v1.begin(), v1.end(), [&count](int x) {count[x]++;});
-			for_each(count.begin(), count.end(), [](auto x))
-			for(auto x: count) {
-				cout << x.first << ", "      << x.second << endl;
+			unordered_multiset<int> count;
+			for_each(v1.begin(), v1.end(), [&count](int x) {count.insert(x);});
+			for_each(count.begin(), count.end(), [](int x){cout << x << ",";});cout<<endl;
+			bool all = true;
+			cout<<endl;
+			unordered_multiset<int>::iterator pos;
+			for(auto x: v2) {
+				if((pos = count.find(x)) != count.end())
+				{
+					cout << "["<< x << "] ";
+					count.erase(pos);
+					for_each(count.begin(), count.end(), [](int x){cout << x << ",";});cout<<endl;
+				}
+				else
+					all = false;
 			}
-			
-			
-			
+			if (all)
+				cout << "Permutation!" << endl;
+			else
+				cout << "NOT Permutation!" << endl;
 		}
 
 #define SIZE 7

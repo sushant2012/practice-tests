@@ -89,7 +89,7 @@ void BSTree<T>::remove(const T& key)
 template<typename T>
 void BSTree<T>::intrav_helper(Link t)
 {
-	if (!t)       return;
+	if (!t) return;
 	intrav_helper(t->left);
 	cout << t->key << ",";
 	intrav_helper(t->right);

@@ -20,6 +20,7 @@
 using namespace std;
 
 namespace ms_puzzles {
+
 	namespace recursive
 	{
 		int max(int a[], int s, int e)

@@ -35,6 +35,8 @@ namespace simple_list {
 	public:
 		slist() : _head(0){}
 		void insert(int key);
+		void reverse();
+		void skip_reverse(int m, int n);
 		void print();
 		~slist();
 	};
@@ -58,6 +60,52 @@ namespace simple_list {
 		}
 	}
 
+	void slist::reverse()
+	{
+		snode* t, *curr(_head), *rhead(0);
+		while(curr)
+		{
+			t = curr->next;
+			curr->next = rhead;
+			rhead = curr;
+			curr = t;
+		}
+		_head = rhead;
+	}
+	
+	void slist::skip_reverse(int s, int r)
+	{
+		int ss=0, rr=0;
+		if (ss>s || rr>r) return;
+		snode* curr(_head), *tail;
+		while (curr)
+		{
+			while (ss < s && curr)
+			{
+				tail = curr;
+				curr = curr->next;
+				ss++;
+			}
+			if (ss < s) return;
+			ss = 0;
+			snode* t, *rev(0), *head(curr);
+			while (curr && rr < r)
+			{
+				t = curr->next;
+				curr->next = rev;
+
+				rev = curr;
+				curr = t;
+
+				rr++;
+			}
+			if (rr == 0) return;
+			tail->next = rev;
+			head->next = curr;
+			rr = 0;
+		}
+	}
+	
 	void slist::print() {
 		snode * p(_head);
 		while (p) {
@@ -69,8 +117,13 @@ namespace simple_list {
 
 	void test() {
 		slist sl;
-		for (int i = 0; i < 40; ++i)
+		for (int i = 0; i < 2; ++i)
 			sl.insert(i + 1);
+		sl.print();
+		sl.reverse();cout << "Reverse:" << endl;
+		sl.print();
+		sl.reverse();
+		sl.skip_reverse(1,3);cout << "Skip Reverse:" << endl;
 		sl.print();
 	}
 }

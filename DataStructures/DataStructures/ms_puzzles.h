@@ -16,6 +16,9 @@
 #include <iterator>
 #include <functional>
 #include <unordered_set>
+#include <iomanip>
+#include <set>
+#include <cstring>
 
 using namespace std;
 
@@ -23,6 +26,41 @@ namespace ms_puzzles {
 
 	namespace recursive
 	{
+		set<string> perms;
+		int permc = 0;
+		void permutation(char a[], int k, int n)
+		{
+			static int count;
+			if (k == n-1)
+			{
+				//perms.insert(string(a));
+				++permc;
+				//cout << setw(3) << ++count << " " << a << endl;
+				return;
+			}
+			else
+			{
+				for(int i=k; i<n; ++i)
+				{
+					char t = a[k];
+					a[k] = a[i];
+					a[i] = t;
+					permutation(a, k+1, n);
+					t = a[k];
+					a[k] = a[i];
+					a[i] = t;
+				}
+			}
+		}
+		
+		void test_permutation()
+		{
+			char a[] = "ABCDEFGHIJKLM";
+			ms_puzzles::recursive::permutation(a, 0, strlen(a));
+			cout << endl;
+			cout << "Set size: " << permc << endl;
+		}
+		
 		int max(int a[], int s, int e)
 		{
 			if (s<e)

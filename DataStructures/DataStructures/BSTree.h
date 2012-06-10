@@ -1,5 +1,7 @@
 #include <iostream>
 #include <queue>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -124,5 +126,20 @@ namespace trees {
 		cout << t->key << ",";
 		pretrav_helper(t->left);
 		pretrav_helper(t->right);
+	}
+
+	void test() 
+	{
+		trees::BSTree<int> tree;
+		vector<int> v {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+		trees::BSTree<int>::Link t;
+		random_shuffle(v.begin(), v.end());
+		for_each(v.begin(), v.end(), [&tree](int x) {tree.insert(x);});
+		cout << "Min: " << ((t = tree.min()) ? t->key : -1) << endl;
+		cout << "Max: " << ((t = tree.max()) ? t->key : -1) << endl;
+		cout << "Intrav" << endl; tree.intrav();
+		cout << "Pretrav" << endl; tree.pretrav();
+		cout << "Postrav" << endl; tree.postrav();
+		cout << "Leveltrav" << endl; tree.leveltrav();
 	}
 }
